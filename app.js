@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var server = require('./lib/server');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
+console.log("Env = ", app.get('env'));
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -55,4 +57,9 @@ app.use(function(err, req, res, next) {
 });
 
 
+server(app);
+
+// app.listen(3030, () => {
+//   console.log("App is running on port 3030");
+// });
 module.exports = app;
